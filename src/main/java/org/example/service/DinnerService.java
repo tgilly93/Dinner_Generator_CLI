@@ -13,21 +13,18 @@ public class DinnerService {
 
     private final String API_URL = "https://www.themealdb.com/api/json/v1/1/random.php";
 
-    // ✅ Constructor to add Jackson JSON converter
     public DinnerService() {
         this.template = new RestTemplate();
 
-        // ✅ Add Jackson message converter inside constructor
         List<HttpMessageConverter<?>> messageConverters = template.getMessageConverters();
         messageConverters.add(new MappingJackson2HttpMessageConverter());
     }
 
     public Meal getRandomMeal() {
-        // ✅ Fetch raw JSON response
         String rawResponse = template.getForObject(API_URL, String.class);
         System.out.println("🔍 Raw API Response: " + rawResponse);
 
-        // ✅ Deserialize response into DinnerResponse object
+
         DinnerResponse dinnerResponse = template.getForObject(API_URL, DinnerResponse.class);
 
         System.out.println("📢 Debug: dinnerResponse = " + dinnerResponse);
@@ -35,7 +32,7 @@ public class DinnerService {
 
 
         if (dinnerResponse != null && dinnerResponse.getMeals() != null && !dinnerResponse.getMeals().isEmpty()) {
-            return dinnerResponse.getMeals().get(0);  // ✅ Get first meal from list
+            return dinnerResponse.getMeals().get(0);
         }
 
         return null;
