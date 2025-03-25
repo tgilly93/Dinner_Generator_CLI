@@ -2,8 +2,6 @@ package org.example.service;
 
 import org.example.model.DinnerResponse;
 import org.example.model.Meal;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -16,8 +14,6 @@ public class DinnerService {
     public DinnerService() {
         this.template = new RestTemplate();
 
-        List<HttpMessageConverter<?>> messageConverters = template.getMessageConverters();
-        messageConverters.add(new MappingJackson2HttpMessageConverter());
     }
 
     public Meal getRandomMeal() {
