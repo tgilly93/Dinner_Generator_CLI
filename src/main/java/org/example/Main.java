@@ -1,43 +1,45 @@
 package org.example;
 
 import org.example.model.Meal;
+import org.example.model.MealManager;
 import org.example.service.DinnerService;
+import java.util.Scanner;
 
-import java.time.LocalDate;
+
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hungry?! Let us choose your next meal!");
-        LocalDate date = LocalDate.now();
-        //System.out.println(date);
+        Scanner scanner = new Scanner(System.in);
+        MealManager mealManager = new MealManager(scanner);
 
-        DinnerService dinnerService = new DinnerService();
-        Meal meal = dinnerService.getRandomMeal();
+        System.out.println("🍽️ Welcome to Meal Generator! 🍽️");
 
-        if (meal != null) {
-            System.out.println("\n🍽️  Random Meal Generated 🍽️");
-            System.out.println("================================");
-            System.out.println("Name: " + meal.getName());
-            System.out.println("Category: " + meal.getCategory());
-            System.out.println("Cuisine: " + meal.getArea());
-            System.out.println("Instructions: " + meal.getInstructions());
-            System.out.println("\n Ingredients & Measurements:");
-            System.out.println("--------------------------------");
+        boolean running = true;
+        while (running) {
+            System.out.println("\nPlease choose an option:");
+            System.out.println("1️⃣  Pick a meal");
+            System.out.println("2️⃣  View saved meals");
+            System.out.println("3️⃣  Exit");
+            System.out.print("Enter your choice: ");
 
-            for (int i = 1; i <= 20; i++) {
-                String ingredient = meal.getIngredient(i);
-                String measurement = meal.getMeasure(i);
-                if (ingredient != null && !ingredient.isEmpty()) {
-                    System.out.println("✅ " + ingredient + " - " + (measurement != null ? measurement : ""));
-                }
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    mealManager.pickMeal();
+                    break;
+                case 2:
+                    mealManager.viewSavedMeals();
+                    break;
+                case 3:
+                    System.out.println("👋 Thank you for using Meal Generator! Goodbye!");
+                    running = false;
+                    break;
+                default:
+                    System.out.println("❌ Invalid choice! Please select 1, 2, or 3.");
             }
-
-            System.out.println("\n📸 Image: " + meal.getImageUrl());
-            System.out.println("🎥 YouTube Tutorial: " + meal.getYoutubeUrl());
-            System.out.println("🔗 Source: " + meal.getSourceUrl());
-            System.out.println("=================================\n");
-        } else {
-            System.out.println("No meal found.");
         }
+        scanner.close();
     }
 }
