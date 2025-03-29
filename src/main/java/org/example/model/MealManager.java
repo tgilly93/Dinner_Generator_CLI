@@ -1,7 +1,6 @@
 package org.example.model;
 
 import org.example.service.DinnerService;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

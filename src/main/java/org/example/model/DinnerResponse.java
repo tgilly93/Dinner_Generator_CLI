@@ -1,10 +1,7 @@
 package org.example.model;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
-
 public class DinnerResponse {
 
     @JsonProperty("meals")
